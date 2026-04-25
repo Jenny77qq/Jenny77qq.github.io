@@ -1,11 +1,30 @@
 ---
-title: "Jenny77qq.github.io"
+title: "Jenny Chen"
+about:
+  template: jolla
+  image: profile.jpg
+  image-shape: round
+  image-width: 15em
+  links: 
+    - text: GitHub
+      href: https://github.com/Jenny77qq
+    - text: Email
+      href: mailto:chen52@stolaf.edu
 ---
 
-This is a Quarto website.
+## About Me
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+I am a student at St. Olaf College.
 
-```{r}
-1 + 1
-```
+### Education
+- **St. Olaf College** - Statistics and Data Science / Computer Science
+
+### Skills
+- R, Python, C++
+- Data visualization (ggplot2, plotly)
+- Statistical analysis
+
+### Interests
+- Data visualization
+- Text analysis
+- Geospatial analysis

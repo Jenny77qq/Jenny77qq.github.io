@@ -4,12 +4,16 @@ project:
   
 
 website:
-  title: "Jenny77qq.github.io"
+  title: "Jenny Chen"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - about.qmd
+      - text: "Text Analysis"
+        href: text_analysis.qmd
+      - text: "Maps"
+        href: maps.qmd
 
 format:
   html:
