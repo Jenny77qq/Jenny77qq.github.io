@@ -14,17 +14,17 @@ about:
 
 ## About Me
 
-I am a student at St. Olaf College.
+Hi! I'm Jenny Chen, a student from class of 2029 at St. Olaf College studying 
+Data Science and Computer Science. I enjoy finding patterns 
+in data and telling stories through visualization. 
+
+Outside of class, I like singing, music theater, and dancing.
+
 
 ### Education
 - **St. Olaf College** - Statistics and Data Science / Computer Science
 
 ### Skills
 - R, Python, C++
-- Data visualization (ggplot2, plotly)
-- Statistical analysis
-
-### Interests
 - Data visualization
-- Text analysis
-- Geospatial analysis
+- Statistical analysis
