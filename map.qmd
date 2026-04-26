@@ -75,4 +75,97 @@ static_data |>
   labs(title = "Vehicle Crash Fatalities by State (2007)")
 ```
 
+#### Interactive Map (leaflet)
 
+```{r}
+#| echo: true
+
+# Create color palette
+pal_num <- colorNumeric("viridis", domain = sf_data$carfatal07)
+
+# Create interactive labels
+sf_data <- sf_data |>
+  mutate(labels_num = str_c(str_to_title(name), ": ", 
+                            round(carfatal07, 1), " per 100k"))
+
+leaflet(sf_data) |>
+  addTiles() |>
+  setView(-96, 37.8, 4) |>
+  addPolygons(
+    fillColor = ~pal_num(carfatal07),
+    weight = 1,
+    fillOpacity = 0.7,
+    color = "white",
+    label = ~labels_num,
+    labelOptions = labelOptions(textsize = "12px"),
+    highlightOptions = highlightOptions(weight = 3, color = "#666")
+  )
+```
+
+#### Insights
+The numeric map reveals significant regional variation. Southern states like Mississippi and West Virginia show the highest fatality rates, while states in the Northeast generally have lower rates. This pattern may reflect differences in rural versus urban driving conditions, speed limits, and emergency response capabilities.
+
+### Categorical Variable: Cook Partisan Voting Index (cook_index3)
+*Cook Political Report partisan lean: "D+8+", "Competitive", or "R+8+".*
+
+#### Static Map (ggplot2)
+```{r}
+#| echo: true
+#| fig-height: 6
+#| fig-width: 8
+
+static_data |>
+  mutate(cook_cat = factor(cook_index3, 
+                          levels = c("D+8+", "Competitive", "R+8+"))) |>
+  ggplot(aes(x = long, y = lat, group = group)) + 
+  geom_polygon(aes(fill = cook_cat), color = "black", linewidth = 0.2) + 
+  coord_map() + 
+  theme_void() + 
+  scale_fill_manual(name = "Partisan Lean",
+                    values = c("D+8+" = "blue", 
+                               "Competitive" = "purple", 
+                               "R+8+" = "red"),
+                    na.value = "grey90") +
+  labs(title = "Cook Partisan Voting Index by State")
+```
+
+#### Interactive Map (leaflet)
+
+```{r}
+#| echo: true
+
+# Prepare data for interactive map
+sf_data <- sf_data |>
+  mutate(cook_cat = factor(cook_index3, 
+                          levels = c("D+8+", "Competitive", "R+8+")))
+
+# Create color palette for categorical variable
+pal_cat <- colorFactor(c("blue", "purple", "red"), 
+                       domain = sf_data$cook_cat,
+                       na.color = "grey90")
+
+# Create labels
+sf_data <- sf_data |>
+  mutate(labels_cat = str_c(str_to_title(name), ": ", cook_index3))
+
+leaflet(sf_data) |>
+  addTiles() |>
+  setView(-96, 37.8, 4) |>
+  addPolygons(
+    fillColor = ~pal_cat(cook_cat),
+    weight = 1,
+    fillOpacity = 0.7,
+    color = "white",
+    label = ~labels_cat,
+    labelOptions = labelOptions(textsize = "12px"),
+    highlightOptions = highlightOptions(weight = 3, color = "#666")
+  ) |>
+  addLegend(pal = pal_cat, values = ~cook_cat, opacity = 0.7,
+            title = "Partisan Lean", position = "bottomright")
+```
+
+#### Insights
+The categorical map shows a clear geographic pattern of partisanship. Democratic-leaning states (blue) cluster in the Northeast and West Coast, while Republican-leaning states (red) dominate the South and Midwest. Competitive states (purple) are scattered, often around the Great Lakes region.
+
+## Summary
+This page demonstrates four choropleth maps (static + interactive for both numeric and categorical variables) using real US state data from the poliscidata package. Interactive maps allow users to hover over each state to see exact values.
