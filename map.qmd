@@ -1,6 +1,78 @@
 ---
-title: "US State Maps"
+title: "US State-Level Data Maps"
 ---
 
-##Coming Soon
-I will add my choropleth maps here.
+This page presents choropleth maps using data from the `poliscidata` package. I chose two variables: **carfatal07** (numeric) and **cook_index3** (categorical).
+
+**Data source:** `poliscidata::states`
+
+
+
+## Setup & Data Preparation
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+# Load libraries
+library(tidyverse)
+library(maps)
+library(sf)
+library(leaflet)
+library(viridis)
+library(poliscidata)
+
+# 1. Get geographic data for static maps (maps package)
+states_polygon <- as_tibble(map_data("state")) |>
+  select(region, group, order, lat, long)
+
+# 2. Get geographic data for interactive maps (sf package)
+states_sf <- read_sf("https://rstudio.github.io/leaflet/json/us-states.geojson") |>
+  select(name, geometry)
+
+# 3. Load poliscidata and prepare variables
+polisci_data <- as_tibble(poliscidata::states) |>
+  select(state, carfatal07, cook_index3)
+
+# Clean keys for merging: lower case and remove spaces
+polisci_data <- polisci_data |>
+  mutate(state = str_to_lower(str_squish(state)))
+
+states_polygon <- states_polygon |>
+  mutate(region = str_to_lower(region))
+
+states_sf <- states_sf |>
+  mutate(name = str_to_lower(name))
+
+# Merge for static plot
+static_data <- states_polygon |>
+  left_join(polisci_data, by = c("region" = "state")) |>
+  filter(!region %in% c("alaska", "hawaii"))
+
+# Merge for interactive plot
+sf_data <- states_sf |>
+  left_join(polisci_data, by = c("name" = "state")) |>
+  filter(!name %in% c("alaska", "hawaii", "puerto rico")) |>
+  mutate(geometry = st_make_valid(geometry))
+```
+
+### Numeric Variable: Traffic Fatalities (carfatal07)
+Car crash fatalities per 100,000 people in 2007.
+#### Static Map (ggplot2)
+```{r}
+#| echo: true
+#| fig-height: 6
+#| fig-width: 8
+
+static_data |>
+  ggplot(aes(x = long, y = lat, group = group)) + 
+  geom_polygon(aes(fill = carfatal07), color = "black", linewidth = 0.2) + 
+  coord_map() + 
+  theme_void() + 
+  scale_fill_viridis_c(name = "Fatalities\n(per 100k)",
+                       option = "plasma") +
+  labs(title = "Vehicle Crash Fatalities by State (2007)")
+```
+
+

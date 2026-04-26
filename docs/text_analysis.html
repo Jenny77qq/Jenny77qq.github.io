@@ -163,7 +163,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#data-and-methods" id="toc-data-and-methods" class="nav-link" data-scroll-target="#data-and-methods">Data and Methods</a>
   <ul class="collapse">
   <li><a href="#data-loading" id="toc-data-loading" class="nav-link" data-scroll-target="#data-loading">Data Loading</a></li>
+  <li><a href="#keyword-definitions" id="toc-keyword-definitions" class="nav-link" data-scroll-target="#keyword-definitions">Keyword Definitions</a></li>
+  <li><a href="#text-categorization" id="toc-text-categorization" class="nav-link" data-scroll-target="#text-categorization">Text Categorization</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#high-frequency-words" id="toc-high-frequency-words" class="nav-link" data-scroll-target="#high-frequency-words">High-Frequency Words</a></li>
+  <li><a href="#sentiment-analysis" id="toc-sentiment-analysis" class="nav-link" data-scroll-target="#sentiment-analysis">Sentiment Analysis</a></li>
+  <li><a href="#tf-idf-analysis" id="toc-tf-idf-analysis" class="nav-link" data-scroll-target="#tf-idf-analysis">TF-IDF Analysis</a></li>
   </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
     </div>
@@ -203,14 +210,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="data-and-methods">Data and Methods</h2>
 <section id="data-loading" class="level3">
 <h3 class="anchored" data-anchor-id="data-loading">Data Loading</h3>
-<p>Keyword Definitions</p>
+</section>
+<section id="keyword-definitions" class="level3">
+<h3 class="anchored" data-anchor-id="keyword-definitions">Keyword Definitions</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sports_keywords <span class="ot">&lt;-</span> <span class="st">"Olympics|Team USA|World Cup|athletes|game|team|players|sport|refugees|basketball|football|win|champion"</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>climate_keywords <span class="ot">&lt;-</span> <span class="st">"climate|Paris|agreement|clean|environment|energy|global warming|emissions|green|sustainable|earth"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>diplomacy_keywords <span class="ot">&lt;-</span> <span class="st">"visit|Cuba|Kenya|Laos|Iran|deal|historic|partnership|foreign|ambassador|meeting|talks|allies|nations"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Text Categorization</p>
-<p>Results Issue Distribution</p>
+</section>
+<section id="text-categorization" class="level3">
+<h3 class="anchored" data-anchor-id="text-categorization">Text Categorization</h3>
+</section>
+<section id="results" class="level3">
+<h3 class="anchored" data-anchor-id="results">Results</h3>
+<p>Issue Distribution</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tweets_cat <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(person, category) <span class="sc">|&gt;</span></span>
@@ -224,7 +238,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The dataset contains 321 tweets from Barack Obama and 4,018 from Michelle Obama. After filtering, Michelle has 161 sports-related tweets and 121 diplomacy-related tweets, but only 15 on climate. Barack’s relevant tweets are evenly distributed across all three categories (sports 24, diplomacy 19, climate 22). This reflects their differing public roles.</p>
-<p>High-Frequency Words</p>
+</section>
+<section id="high-frequency-words" class="level3">
+<h3 class="anchored" data-anchor-id="high-frequency-words">High-Frequency Words</h3>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(word)`</code></pre>
@@ -238,7 +254,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Figure 1 shows the top 10 high-frequency words for Barack and Michelle across the three categories. On climate, Barack’s top words include “climate,” “change,” and “agreement.” Michelle has no climate words in her top 20, reflecting her limited climate coverage. On diplomacy, Barack emphasizes “iran” and “deal,” while Michelle uses “visit” and “partnership.” On sports, Michelle’s vocabulary is more diverse, including “refugees” and “athletes.”</p>
-<p>Sentiment Analysis</p>
+</section>
+<section id="sentiment-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="sentiment-analysis">Sentiment Analysis</h3>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
 <pre><code>Joining with `by = join_by(word)`</code></pre>
@@ -252,7 +270,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Both Obamas maintain predominantly positive tones. Michelle’s sports coverage is exceptionally positive (96.4% positive), while Barack’s sports coverage shows more balance (74.4% positive, 25.6% negative).</p>
-<p>TF-IDF Analysis</p>
+</section>
+<section id="tf-idf-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="tf-idf-analysis">TF-IDF Analysis</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -263,7 +283,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The TF-IDF analysis identifies words uniquely characteristic of each category. For climate: “climate,” “agreement,” “change.” For diplomacy: “visit,” “partnership,” “meeting.” For sports: “team,” “winners,” “athletes,” and notably “refugees.”</p>
-<p>Conclusion</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>Three main findings:</p>
 <ol type="1">
 <li><p>Differential focus: Michelle emphasizes sports and diplomacy; Barack distributes attention evenly across all three categories.</p></li>
@@ -272,7 +295,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
