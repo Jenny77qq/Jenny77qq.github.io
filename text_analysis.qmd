@@ -1,7 +1,168 @@
 ---
-title: "Text Analysis"
+title: "Text Analysis: Obama Tweets"
 ---
 
-## Coming Soon
 
-I will add my Mini-Project 1 content here.
+## Introduction
+
+In May 2015, Barack Obama became the first U.S. president with an official Twitter account. Over the following years, the @POTUS and @FLOTUS accounts documented the Obamas' direct communication with the public. This study analyzes 4,339 tweets from both accounts to compare how Barack and Michelle Obama discuss three global issue areas: **sports**, **climate**, and **diplomacy**.
+
+Specifically, I address three questions:
+
+1. How do the two individuals differ in their attention to each issue area?
+2. What are the emotional tones of their tweets across these three categories?
+3. Which words best characterize each issue area, and how do their linguistic styles differ?
+
+## Data and Methods
+
+### Data Loading
+
+```{r}
+#| echo: false
+#| message: false
+
+library(tidyverse)
+library(tidytext)
+
+barack <- read_csv("https://joeroith.github.io/264_spring_2026/Data/tweets_potus.csv") |>
+  mutate(person = "Barack")
+
+michelle <- read_csv("https://joeroith.github.io/264_spring_2026/Data/tweets_flotus.csv") |>
+  mutate(person = "Michelle")
+
+tweets <- bind_rows(barack, michelle)
+```
+
+Keyword Definitions
+
+```{r}
+#| echo: true
+
+sports_keywords <- "Olympics|Team USA|World Cup|athletes|game|team|players|sport|refugees|basketball|football|win|champion"
+climate_keywords <- "climate|Paris|agreement|clean|environment|energy|global warming|emissions|green|sustainable|earth"
+diplomacy_keywords <- "visit|Cuba|Kenya|Laos|Iran|deal|historic|partnership|foreign|ambassador|meeting|talks|allies|nations"
+```
+
+Text Categorization
+
+```{r}
+#| echo: false
+
+tweets_cat <- tweets |>
+  mutate(
+    category = case_when(
+      str_detect(text, sports_keywords) ~ "sports",
+      str_detect(text, climate_keywords) ~ "climate",
+      str_detect(text, diplomacy_keywords) ~ "diplomacy",
+      TRUE ~ "other"
+    )
+  ) |>
+  filter(category != "other")
+
+tweets_clean <- tweets_cat |>
+  mutate(text_clean = str_replace_all(text, "https?://\\S+", "")) |>
+  mutate(text_clean = str_replace_all(text_clean, "@\\S+", "")) |>
+  mutate(text_clean = str_replace_all(text_clean, "#\\S+", ""))
+```
+
+Results
+Issue Distribution
+
+```{r}
+#| echo: true
+
+tweets_cat |>
+  count(person, category) |>
+  pivot_wider(names_from = category, values_from = n, values_fill = 0)
+```
+
+The dataset contains 321 tweets from Barack Obama and 4,018 from Michelle Obama. After filtering, Michelle has 161 sports-related tweets and 121 diplomacy-related tweets, but only 15 on climate. Barack's relevant tweets are evenly distributed across all three categories (sports 24, diplomacy 19, climate 22). This reflects their differing public roles.
+
+High-Frequency Words
+```{r}
+#| echo: false
+#| fig-height: 10
+#| fig-width: 8
+
+tidy_tweets <- tweets_clean |>
+  unnest_tokens(word, text_clean) |>
+  anti_join(stop_words) |>
+  filter(!str_detect(word, "^[0-9]+$"))
+
+top_words <- tidy_tweets |>
+  count(person, category, word, sort = TRUE) |>
+  group_by(person, category) |>
+  slice_max(n, n = 10) |>
+  ungroup()
+
+ggplot(top_words, aes(x = fct_reorder(word, n), y = n, fill = person)) +
+  geom_col() +
+  coord_flip() +
+  facet_grid(category ~ person, scales = "free") +
+  labs(
+    title = "High-frequency Words on Sports, Climate, and Diplomacy",
+    x = "Words", y = "Count"
+  ) +
+  theme_minimal()
+```
+
+Figure 1 shows the top 10 high-frequency words for Barack and Michelle across the three categories. On climate, Barack's top words include "climate," "change," and "agreement." Michelle has no climate words in her top 20, reflecting her limited climate coverage. On diplomacy, Barack emphasizes "iran" and "deal," while Michelle uses "visit" and "partnership." On sports, Michelle's vocabulary is more diverse, including "refugees" and "athletes."
+
+Sentiment Analysis
+```{r}
+#| echo: false
+
+bing_sentiments <- get_sentiments("bing")
+
+sentiment_counts <- tidy_tweets |>
+  inner_join(bing_sentiments) |>
+  count(person, category, sentiment) |>
+  group_by(person, category) |>
+  mutate(proportion = n / sum(n))
+
+ggplot(sentiment_counts, aes(x = category, y = proportion, fill = sentiment)) +
+  geom_col(position = "dodge") +
+  facet_wrap(~person) +
+  labs(
+    title = "Emotional Tone by Person and Topic",
+    x = "Topic Category", y = "Proportion"
+  ) +
+  theme_minimal()
+```
+Both Obamas maintain predominantly positive tones. Michelle's sports coverage is exceptionally positive (96.4% positive), while Barack's sports coverage shows more balance (74.4% positive, 25.6% negative).
+
+
+TF-IDF Analysis
+```{r}
+#| echo: false
+
+category_tfidf <- tidy_tweets |>
+  count(category, word) |>
+  bind_tf_idf(word, category, n) |>
+  arrange(desc(tf_idf))
+
+category_tfidf |>
+  group_by(category) |>
+  slice_max(tf_idf, n = 10) |>
+  ggplot(aes(x = fct_reorder(word, tf_idf), y = tf_idf, fill = category)) +
+  geom_col() +
+  coord_flip() +
+  facet_wrap(~category, scales = "free") +
+  labs(
+    title = "Most Representative Words by Topic (TF-IDF)",
+    x = "Words", y = "TF-IDF"
+  ) +
+  theme_minimal()
+```
+The TF-IDF analysis identifies words uniquely characteristic of each category. For climate: "climate," "agreement," "change." For diplomacy: "visit," "partnership," "meeting." For sports: "team," "winners," "athletes," and notably "refugees."
+
+Conclusion
+
+Three main findings:
+
+1. Differential focus: Michelle emphasizes sports and diplomacy; Barack distributes attention evenly across all three categories.
+
+2. Consistently positive messaging: Both maintain positive tones, but Michelle's sports coverage is exceptionally positive (96.4%).
+
+3. Distinctive vocabularies: Barack uses policy-focused language; Michelle uses broader relational and humanitarian terms.
+

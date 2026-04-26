@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About – Jenny Chen</title>
+<title>Text Analysis: Obama Tweets – Jenny Chen</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -132,11 +132,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./text_analysis.html"> 
+    <a class="nav-link active" href="./text_analysis.html" aria-current="page"> 
 <span class="menu-text">Text Analysis</span></a>
   </li>  
   <li class="nav-item">
@@ -154,15 +154,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#data-and-methods" id="toc-data-and-methods" class="nav-link" data-scroll-target="#data-and-methods">Data and Methods</a>
+  <ul class="collapse">
+  <li><a href="#data-loading" id="toc-data-loading" class="nav-link" data-scroll-target="#data-loading">Data Loading</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Text Analysis: Obama Tweets</h1>
 </div>
 
 
@@ -179,15 +189,91 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>About this site</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In May 2015, Barack Obama became the first U.S. president with an official Twitter account. Over the following years, the <span class="citation" data-cites="POTUS">@POTUS</span> and <span class="citation" data-cites="FLOTUS">@FLOTUS</span> accounts documented the Obamas’ direct communication with the public. This study analyzes 4,339 tweets from both accounts to compare how Barack and Michelle Obama discuss three global issue areas: <strong>sports</strong>, <strong>climate</strong>, and <strong>diplomacy</strong>.</p>
+<p>Specifically, I address three questions:</p>
+<ol type="1">
+<li>How do the two individuals differ in their attention to each issue area?</li>
+<li>What are the emotional tones of their tweets across these three categories?</li>
+<li>Which words best characterize each issue area, and how do their linguistic styles differ?</li>
+</ol>
+</section>
+<section id="data-and-methods" class="level2">
+<h2 class="anchored" data-anchor-id="data-and-methods">Data and Methods</h2>
+<section id="data-loading" class="level3">
+<h3 class="anchored" data-anchor-id="data-loading">Data Loading</h3>
+<p>Keyword Definitions</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sports_keywords <span class="ot">&lt;-</span> <span class="st">"Olympics|Team USA|World Cup|athletes|game|team|players|sport|refugees|basketball|football|win|champion"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>climate_keywords <span class="ot">&lt;-</span> <span class="st">"climate|Paris|agreement|clean|environment|energy|global warming|emissions|green|sustainable|earth"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>diplomacy_keywords <span class="ot">&lt;-</span> <span class="st">"visit|Cuba|Kenya|Laos|Iran|deal|historic|partnership|foreign|ambassador|meeting|talks|allies|nations"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Text Categorization</p>
+<p>Results Issue Distribution</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tweets_cat <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(person, category) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> category, <span class="at">values_from =</span> n, <span class="at">values_fill =</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code># A tibble: 2 × 4
+  person   climate diplomacy sports
+  &lt;chr&gt;      &lt;int&gt;     &lt;int&gt;  &lt;int&gt;
+1 Barack        22        19     24
+2 Michelle      15       121    161</code></pre>
 </div>
 </div>
+<p>The dataset contains 321 tweets from Barack Obama and 4,018 from Michelle Obama. After filtering, Michelle has 161 sports-related tweets and 121 diplomacy-related tweets, but only 15 on climate. Barack’s relevant tweets are evenly distributed across all three categories (sports 24, diplomacy 19, climate 22). This reflects their differing public roles.</p>
+<p>High-Frequency Words</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(word)`</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="text_analysis_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure 1 shows the top 10 high-frequency words for Barack and Michelle across the three categories. On climate, Barack’s top words include “climate,” “change,” and “agreement.” Michelle has no climate words in her top 20, reflecting her limited climate coverage. On diplomacy, Barack emphasizes “iran” and “deal,” while Michelle uses “visit” and “partnership.” On sports, Michelle’s vocabulary is more diverse, including “refugees” and “athletes.”</p>
+<p>Sentiment Analysis</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(word)`</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="text_analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Both Obamas maintain predominantly positive tones. Michelle’s sports coverage is exceptionally positive (96.4% positive), while Barack’s sports coverage shows more balance (74.4% positive, 25.6% negative).</p>
+<p>TF-IDF Analysis</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="text_analysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The TF-IDF analysis identifies words uniquely characteristic of each category. For climate: “climate,” “agreement,” “change.” For diplomacy: “visit,” “partnership,” “meeting.” For sports: “team,” “winners,” “athletes,” and notably “refugees.”</p>
+<p>Conclusion</p>
+<p>Three main findings:</p>
+<ol type="1">
+<li><p>Differential focus: Michelle emphasizes sports and diplomacy; Barack distributes attention evenly across all three categories.</p></li>
+<li><p>Consistently positive messaging: Both maintain positive tones, but Michelle’s sports coverage is exceptionally positive (96.4%).</p></li>
+<li><p>Distinctive vocabularies: Barack uses policy-focused language; Michelle uses broader relational and humanitarian terms.</p></li>
+</ol>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

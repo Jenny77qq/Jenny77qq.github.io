@@ -1,10 +1,24 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "text_analysis.html",
+    "href": "text_analysis.html",
+    "title": "Text Analysis: Obama Tweets",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "In May 2015, Barack Obama became the first U.S. president with an official Twitter account. Over the following years, the @POTUS and @FLOTUS accounts documented the Obamas’ direct communication with the public. This study analyzes 4,339 tweets from both accounts to compare how Barack and Michelle Obama discuss three global issue areas: sports, climate, and diplomacy.\nSpecifically, I address three questions:\n\nHow do the two individuals differ in their attention to each issue area?\nWhat are the emotional tones of their tweets across these three categories?\nWhich words best characterize each issue area, and how do their linguistic styles differ?"
+  },
+  {
+    "objectID": "text_analysis.html#introduction",
+    "href": "text_analysis.html#introduction",
+    "title": "Text Analysis: Obama Tweets",
+    "section": "",
+    "text": "In May 2015, Barack Obama became the first U.S. president with an official Twitter account. Over the following years, the @POTUS and @FLOTUS accounts documented the Obamas’ direct communication with the public. This study analyzes 4,339 tweets from both accounts to compare how Barack and Michelle Obama discuss three global issue areas: sports, climate, and diplomacy.\nSpecifically, I address three questions:\n\nHow do the two individuals differ in their attention to each issue area?\nWhat are the emotional tones of their tweets across these three categories?\nWhich words best characterize each issue area, and how do their linguistic styles differ?"
+  },
+  {
+    "objectID": "text_analysis.html#data-and-methods",
+    "href": "text_analysis.html#data-and-methods",
+    "title": "Text Analysis: Obama Tweets",
+    "section": "Data and Methods",
+    "text": "Data and Methods\n\nData Loading\nKeyword Definitions\n\nsports_keywords &lt;- \"Olympics|Team USA|World Cup|athletes|game|team|players|sport|refugees|basketball|football|win|champion\"\nclimate_keywords &lt;- \"climate|Paris|agreement|clean|environment|energy|global warming|emissions|green|sustainable|earth\"\ndiplomacy_keywords &lt;- \"visit|Cuba|Kenya|Laos|Iran|deal|historic|partnership|foreign|ambassador|meeting|talks|allies|nations\"\n\nText Categorization\nResults Issue Distribution\n\ntweets_cat |&gt;\n  count(person, category) |&gt;\n  pivot_wider(names_from = category, values_from = n, values_fill = 0)\n\n# A tibble: 2 × 4\n  person   climate diplomacy sports\n  &lt;chr&gt;      &lt;int&gt;     &lt;int&gt;  &lt;int&gt;\n1 Barack        22        19     24\n2 Michelle      15       121    161\n\n\nThe dataset contains 321 tweets from Barack Obama and 4,018 from Michelle Obama. After filtering, Michelle has 161 sports-related tweets and 121 diplomacy-related tweets, but only 15 on climate. Barack’s relevant tweets are evenly distributed across all three categories (sports 24, diplomacy 19, climate 22). This reflects their differing public roles.\nHigh-Frequency Words\n\n\nJoining with `by = join_by(word)`\n\n\n\n\n\n\n\n\n\nFigure 1 shows the top 10 high-frequency words for Barack and Michelle across the three categories. On climate, Barack’s top words include “climate,” “change,” and “agreement.” Michelle has no climate words in her top 20, reflecting her limited climate coverage. On diplomacy, Barack emphasizes “iran” and “deal,” while Michelle uses “visit” and “partnership.” On sports, Michelle’s vocabulary is more diverse, including “refugees” and “athletes.”\nSentiment Analysis\n\n\nJoining with `by = join_by(word)`\n\n\n\n\n\n\n\n\n\nBoth Obamas maintain predominantly positive tones. Michelle’s sports coverage is exceptionally positive (96.4% positive), while Barack’s sports coverage shows more balance (74.4% positive, 25.6% negative).\nTF-IDF Analysis\n\n\n\n\n\n\n\n\n\nThe TF-IDF analysis identifies words uniquely characteristic of each category. For climate: “climate,” “agreement,” “change.” For diplomacy: “visit,” “partnership,” “meeting.” For sports: “team,” “winners,” “athletes,” and notably “refugees.”\nConclusion\nThree main findings:\n\nDifferential focus: Michelle emphasizes sports and diplomacy; Barack distributes attention evenly across all three categories.\nConsistently positive messaging: Both maintain positive tones, but Michelle’s sports coverage is exceptionally positive (96.4%).\nDistinctive vocabularies: Barack uses policy-focused language; Michelle uses broader relational and humanitarian terms."
   },
   {
     "objectID": "index.html",
@@ -19,5 +33,19 @@
     "title": "Jenny Chen",
     "section": "",
     "text": "I am a student at St. Olaf College.\n\n\n\nSt. Olaf College - Statistics and Data Science / Computer Science\n\n\n\n\n\nR, Python, C++\nData visualization (ggplot2, plotly)\nStatistical analysis\n\n\n\n\n\nData visualization\nText analysis\nGeospatial analysis"
+  },
+  {
+    "objectID": "map.html",
+    "href": "map.html",
+    "title": "US State Maps",
+    "section": "",
+    "text": "##Coming Soon I will add my choropleth maps here."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
   }
 ]
