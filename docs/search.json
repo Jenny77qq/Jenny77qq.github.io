@@ -28,20 +28,6 @@
     "text": "Conclusion\nThree main findings:\n\nDifferential focus: Michelle emphasizes sports and diplomacy; Barack distributes attention evenly across all three categories.\nConsistently positive messaging: Both maintain positive tones, but Michelle’s sports coverage is exceptionally positive (96.4%).\nDistinctive vocabularies: Barack uses policy-focused language; Michelle uses broader relational and humanitarian terms."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Jenny Chen",
-    "section": "",
-    "text": "Hi! I’m Jenny Chen, a student from class of 2029 at St. Olaf College studying Data Science and Computer Science. I enjoy finding patterns in data and telling stories through visualization.\nOutside of class, I like singing, music theater, and dancing.\n\n\n\nSt. Olaf College - Statistics and Data Science / Computer Science\n\n\n\n\n\nR, Python, C++\nData visualization\nStatistical analysis"
-  },
-  {
-    "objectID": "index.html#about-me",
-    "href": "index.html#about-me",
-    "title": "Jenny Chen",
-    "section": "",
-    "text": "Hi! I’m Jenny Chen, a student from class of 2029 at St. Olaf College studying Data Science and Computer Science. I enjoy finding patterns in data and telling stories through visualization.\nOutside of class, I like singing, music theater, and dancing.\n\n\n\nSt. Olaf College - Statistics and Data Science / Computer Science\n\n\n\n\n\nR, Python, C++\nData visualization\nStatistical analysis"
-  },
-  {
     "objectID": "map.html",
     "href": "map.html",
     "title": "US State-Level Data Maps",
@@ -63,10 +49,17 @@
     "text": "Summary\nThis page demonstrates four choropleth maps (static + interactive for both numeric and categorical variables) using real US state data from the poliscidata package. Interactive maps allow users to hover over each state to see exact values."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Jenny Chen",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "Hi! I’m Jenny Chen, a student from class of 2029 at St. Olaf College studying Data Science and Computer Science. I enjoy finding patterns in data and telling stories through visualization.\nOutside of class, I like singing, music theater, and dancing.\n\n\n\nSt. Olaf College - Statistics and Data Science / Computer Science\n\n\n\n\n\nR, Python, C++\nData visualization\nStatistical analysis"
+  },
+  {
+    "objectID": "index.html#about-me",
+    "href": "index.html#about-me",
+    "title": "Jenny Chen",
+    "section": "",
+    "text": "Hi! I’m Jenny Chen, a student from class of 2029 at St. Olaf College studying Data Science and Computer Science. I enjoy finding patterns in data and telling stories through visualization.\nOutside of class, I like singing, music theater, and dancing.\n\n\n\nSt. Olaf College - Statistics and Data Science / Computer Science\n\n\n\n\n\nR, Python, C++\nData visualization\nStatistical analysis"
   }
 ]

@@ -9,7 +9,6 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
       - text: "Text Analysis"
         href: text_analysis.qmd
       - text: "Maps"
