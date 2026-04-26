@@ -13,7 +13,7 @@ website:
       - text: "Text Analysis"
         href: text_analysis.qmd
       - text: "Maps"
-        href: maps.qmd
+        href: map.qmd
 
 format:
   html:
