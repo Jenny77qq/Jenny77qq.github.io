@@ -33,7 +33,7 @@ michelle <- read_csv("https://joeroith.github.io/264_spring_2026/Data/tweets_flo
 tweets <- bind_rows(barack, michelle)
 ```
 
-Keyword Definitions
+### Keyword Definitions
 
 ```{r}
 #| echo: true
@@ -43,7 +43,7 @@ climate_keywords <- "climate|Paris|agreement|clean|environment|energy|global war
 diplomacy_keywords <- "visit|Cuba|Kenya|Laos|Iran|deal|historic|partnership|foreign|ambassador|meeting|talks|allies|nations"
 ```
 
-Text Categorization
+### Text Categorization
 
 ```{r}
 #| echo: false
@@ -65,7 +65,7 @@ tweets_clean <- tweets_cat |>
   mutate(text_clean = str_replace_all(text_clean, "#\\S+", ""))
 ```
 
-Results
+### Results
 Issue Distribution
 
 ```{r}
@@ -78,7 +78,7 @@ tweets_cat |>
 
 The dataset contains 321 tweets from Barack Obama and 4,018 from Michelle Obama. After filtering, Michelle has 161 sports-related tweets and 121 diplomacy-related tweets, but only 15 on climate. Barack's relevant tweets are evenly distributed across all three categories (sports 24, diplomacy 19, climate 22). This reflects their differing public roles.
 
-High-Frequency Words
+### High-Frequency Words
 ```{r}
 #| echo: false
 #| fig-height: 10
@@ -108,7 +108,7 @@ ggplot(top_words, aes(x = fct_reorder(word, n), y = n, fill = person)) +
 
 Figure 1 shows the top 10 high-frequency words for Barack and Michelle across the three categories. On climate, Barack's top words include "climate," "change," and "agreement." Michelle has no climate words in her top 20, reflecting her limited climate coverage. On diplomacy, Barack emphasizes "iran" and "deal," while Michelle uses "visit" and "partnership." On sports, Michelle's vocabulary is more diverse, including "refugees" and "athletes."
 
-Sentiment Analysis
+### Sentiment Analysis
 ```{r}
 #| echo: false
 
@@ -132,7 +132,7 @@ ggplot(sentiment_counts, aes(x = category, y = proportion, fill = sentiment)) +
 Both Obamas maintain predominantly positive tones. Michelle's sports coverage is exceptionally positive (96.4% positive), while Barack's sports coverage shows more balance (74.4% positive, 25.6% negative).
 
 
-TF-IDF Analysis
+### TF-IDF Analysis
 ```{r}
 #| echo: false
 
@@ -156,7 +156,7 @@ category_tfidf |>
 ```
 The TF-IDF analysis identifies words uniquely characteristic of each category. For climate: "climate," "agreement," "change." For diplomacy: "visit," "partnership," "meeting." For sports: "team," "winners," "athletes," and notably "refugees."
 
-Conclusion
+## Conclusion
 
 Three main findings:
 
